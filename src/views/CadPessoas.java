@@ -5,6 +5,9 @@
  */
 package views;
 
+import connection.Conexao;
+import controllers.PessoaController;
+import models.Pessoa;
 import tools.CaixaDeDialogo;
 import tools.Globais;
 
@@ -16,9 +19,14 @@ public class CadPessoas extends javax.swing.JFrame {
 
     /**
      * Creates new form CadPessoas
+     *
      */
+    Pessoa objPessoa = new Pessoa();
+    PessoaController controller = new PessoaController(objPessoa);
+
     public CadPessoas() {
         initComponents();
+        Conexao.abreConexao();
     }
 
     /**
@@ -39,6 +47,11 @@ public class CadPessoas extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Nome");
 
@@ -61,13 +74,14 @@ public class CadPessoas extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2))
                         .addGap(55, 55, 55)
                         .addComponent(btnSalvar)))
                 .addContainerGap(144, Short.MAX_VALUE))
@@ -96,14 +110,61 @@ public class CadPessoas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-       String email = txtEmail.getText().toString();
-       String telefone = txtTelefone.getText().toString();
-       if(!Globais.validarEmail(email))
-           CaixaDeDialogo.obterinstancia().exibirMensagem("Email invalido!");
-           CaixaDeDialogo.obterinstancia().exibirMensagem(Globais.retornaApenasNumeros(telefone));
+//       String email = txtEmail.getText().toString();
+        // String telefone = txtTelefone.getText().toString();
+
+//            try {
+//              
+//         objPessoa.setNome(txtNome.getText());
+//         objPessoa.setEmail(txtEmail.getText());
+//         objPessoa.setTelefone(txtTelefone.getText());
+//                
+//            //String nome = txtNome.getText().toString();
+//            //String email = txtEmail.getText().toString();
+//            //String telefone = txtTelefone.getText().toString();
+//            
+//            controller = new PessoaController(objPessoa);
+//            boolean cadastrar = controller.cadastrar();
+//            
+//            if(controller != false){
+//           // atualizarInformacoesTela();
+//            CaixaDeDialogo.obterinstancia().exibirMensagem("Operação realizada com sucesso", 'i');
+//            System.out.println("Pessoa cadastrada: " + nome);
+//        }else{
+//            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao cadastrar pessoa", 'e');
+//            }
+//        }catch (Exception ex) {
+//            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
+//        }
+        try {
+            objPessoa.setNome(txtNome.getText());
+            objPessoa.setEmail(txtEmail.getText());
+            objPessoa.setTelefone(txtTelefone.getText());
+
+            controller = new PessoaController(objPessoa);
+            boolean incluir = controller.cadastrar();
+
+            if (incluir == false) {
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao incluir usuário!", "Erro", 'e');
+                return;
+
+            } else {
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Usuário cadastrado com sucesso!", "Cadastro", 'i');
+
+            }
+        } catch (Exception ex) {
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
+        }
+
+        // if(!Globais.validarEmail(email))
+        //   CaixaDeDialogo.obterinstancia().exibirMensagem("Email invalido!");
+        // CaixaDeDialogo.obterinstancia().exibirMensagem(Globais.retornaApenasNumeros(telefone));
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // PessoaController controller = new PessoaController();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
