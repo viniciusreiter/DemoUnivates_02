@@ -113,29 +113,6 @@ public class CadPessoas extends javax.swing.JFrame {
 //       String email = txtEmail.getText().toString();
         // String telefone = txtTelefone.getText().toString();
 
-//            try {
-//              
-//         objPessoa.setNome(txtNome.getText());
-//         objPessoa.setEmail(txtEmail.getText());
-//         objPessoa.setTelefone(txtTelefone.getText());
-//                
-//            //String nome = txtNome.getText().toString();
-//            //String email = txtEmail.getText().toString();
-//            //String telefone = txtTelefone.getText().toString();
-//            
-//            controller = new PessoaController(objPessoa);
-//            boolean cadastrar = controller.cadastrar();
-//            
-//            if(controller != false){
-//           // atualizarInformacoesTela();
-//            CaixaDeDialogo.obterinstancia().exibirMensagem("Operação realizada com sucesso", 'i');
-//            System.out.println("Pessoa cadastrada: " + nome);
-//        }else{
-//            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao cadastrar pessoa", 'e');
-//            }
-//        }catch (Exception ex) {
-//            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
-//        }
         try {
             objPessoa.setNome(txtNome.getText());
             objPessoa.setEmail(txtEmail.getText());
@@ -145,11 +122,11 @@ public class CadPessoas extends javax.swing.JFrame {
             boolean incluir = controller.cadastrar();
 
             if (incluir == false) {
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao incluir usuário!", "Erro", 'e');
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao incluir pessoa!", "Erro", 'e');
                 return;
 
             } else {
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Usuário cadastrado com sucesso!", "Cadastro", 'i');
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Pessoa cadastrado com sucesso!", "Cadastro", 'i');
 
             }
         } catch (Exception ex) {
