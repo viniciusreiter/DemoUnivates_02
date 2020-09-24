@@ -27,6 +27,8 @@ public class CadPessoas extends javax.swing.JFrame {
     public CadPessoas() {
         initComponents();
         Conexao.abreConexao();
+        //testecomentario
+        
     }
 
     /**
